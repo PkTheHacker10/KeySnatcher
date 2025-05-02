@@ -12,15 +12,12 @@ conn,addr=sock.accept()
 def receive_data():
     while True:
         try:
-            print("waiting for data..")
             data=conn.recv(BUFFER_SIZE).decode()
-            print("data received..")
             if not data:
-                print("\nConnection closed\nPress enter to quit.")
+                print("\nConnection closed")
                 break
 
             if data:
-                #print(f"\n{data}",end="")
                 print(data)
 
             else:
