@@ -50,14 +50,13 @@ def receive_data(conn):
 
 if __name__ == "__main__":
     banner="""
-                     _                              
-         ___ ___ ___| |_    ___ ___ ___ _ _ ___ ___ 
-        | . |  _| .'| . |  |_ -| -_|  _| | | -_|  _|
-        |_  |_| |__,|___|  |___|___|_|  \\_/|___|_|  
-        |___|      
+                ┌─┐┌┐┌┌─┐┌┬┐┌─┐┬ ┬
+                └─┐│││├─┤ │ │  ├─┤
+                └─┘┘└┘┴ ┴ ┴ └─┘┴ ┴     
+                      SERVER
 
-                    Author :  Pevinkumar A 
-                    GitHub :  PkTheHacker10\n"""
+                                Author :  Pevinkumar A 
+                                GitHub :  PkTheHacker10\n"""
     print(banner)
     try:
         sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
