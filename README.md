@@ -10,7 +10,7 @@ This project is a **Python-based keylogger simulation**, created for **education
 ```
 📁 keylogger_project/
 ├── snatcher.py        # Keylogger
-├── receiver.py        # snatch-server.py
+├── snatch-server.py   # Server to receive exfiltrated data 
 └── README.md          # Project documentation
 ```
 
