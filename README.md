@@ -68,7 +68,8 @@ The script will:
 * Send it over the network to the receiver
 
 ---
-
+Sample Output:
+![Banner](snatch-server-output.png)
 ## 🔄 How Encryption Works
 
 * A **random salt** is generated for each message
