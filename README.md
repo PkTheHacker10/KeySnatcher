@@ -1,3 +1,4 @@
+![Banner](snatch-server-banner.png)
 # 🧠 Python Keylogger Simulation (Educational Use Only)
 
 This project is a **Python-based keylogger simulation**, created for **educational and ethical hacking practice**. It demonstrates how keystrokes can be captured, encrypted securely, and sent over a network socket to a remote server. A companion server script is included to decrypt and display the captured data in real-time.
