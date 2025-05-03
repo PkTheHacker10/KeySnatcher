@@ -1,7 +1,7 @@
 import socket
 
 HOST=''
-PORT=1234
+PORT=12345
 BUFFER_SIZE = 1234
 
 sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)

