@@ -1,35 +1,60 @@
-![Banner](snatch-server-banner.png)
-# 🧠 Python Keylogger Simulation (Educational Use Only)
+<p align="center">
+  <img src="snatch-server-banner.png" alt="Keylogger Simulation Banner" width="80%"/>
+</p>
 
-This project is a **Python-based keylogger simulation**, created for **educational and ethical hacking practice**. It demonstrates how keystrokes can be captured, encrypted securely, and sent over a network socket to a remote server. A companion server script is included to decrypt and display the captured data in real-time.
+<h1 align="center">🧠 Python Keylogger Simulation</h1>
 
-> ⚠️ **Disclaimer**: This tool is strictly for learning and testing in authorized environments. Do not use this code on any system you do not own or have explicit permission to test. Unauthorized use is illegal and unethical.
+<p align="center">
+  An educational cybersecurity project demonstrating keystroke capture, encryption, and secure network transmission.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Encryption-Fernet%20(AES)-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Networking-TCP-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Use-Educational%20Only-red?style=for-the-badge" />
+</p>
 
 ---
+
+## ⚠️ Disclaimer
+
+> This project is strictly for **educational and ethical hacking purposes only**.  
+> Do not use this on systems you do not own or have explicit permission to test.
+
+Unauthorized use is illegal and unethical.
+
+---
+
 ## 📂 Project Structure
 
 ```
-📁 keylogger_project/
-├── snatcher.py        # Keylogger
-├── snatch-server.py   # Server to receive exfiltrated data 
-└── README.md          # Project documentation
-```
+
+keylogger_project/
+├── snatcher.py        # Keylogger client
+├── snatch-server.py   # Server receiver & decryptor
+└── README.md
+
+````
+
+---
 
 ## 🚀 Features
 
-- ⌨️ Captures keystrokes (including special keys like `<enter>`, `<space>`, `<ctrl>`, etc.)
-- 🔐 Encrypts keystroke logs using **Fernet** with a **PBKDF2-HMAC-SHA256** derived key
-- 📡 Sends encrypted logs via TCP socket to a remote server
-- 🔓 Includes server-side script to decrypt and print the logs
-- 🧪 Useful for simulating malware behavior and learning secure data handling
+- ⌨️ Captures keystrokes (including special keys)
+- 🔐 Encrypts data using Fernet (AES-based encryption)
+- 🔑 Uses PBKDF2-HMAC-SHA256 for secure key derivation
+- 📡 Sends encrypted logs via TCP socket
+- 🔓 Server decrypts and displays logs in real-time
+- 🧪 Useful for cybersecurity education and malware behavior simulation
 
 ---
 
 ## 📦 Requirements
 
-Install required packages:
+Install dependencies:
 
-```bash
+```bash id="p1kq9x"
 pip install pynput cryptography
 ````
 
@@ -37,75 +62,81 @@ pip install pynput cryptography
 
 ## 🛠️ Usage
 
-### 1. Run the Server (Receiver)
+### 1️⃣ Start Server (Receiver)
 
-Start the server to accept and decrypt incoming keylog data:
-
-```bash
+```bash id="server_run"
 python3 snatch-server.py
 ```
 
-### 2. Run the Keylogger (Victim)
+---
 
-Update the `HOST` in `keylogger.py` to the IP address of your server machine:
+### 2️⃣ Configure Client (Keylogger)
 
-```python
+Edit `snatcher.py`:
+
+```python id="cfg1"
 HOST = "YOUR_SERVER_IP"
 PORT = 12345
 ```
 
-Then run the keylogger (in background):
+---
 
-```bash
+### 3️⃣ Run Keylogger Client
+
+```bash id="client_run"
 python3 snatcher.py &
 ```
 
-The script will:
-
-* Capture typed keystrokes
-* Wait for `Enter` to send the batch
-* Encrypt the input
-* Send it over the network to the receiver
-
----
-Sample Output :
-
-![Banner](snatch-server-output.png)
-
 ---
 
-## 🔄 How Encryption Works
+## 🔄 How It Works
 
-* A **random salt** is generated for each message
-* A key is derived from the password using **PBKDF2-HMAC-SHA256** (1.2M iterations)
-* The derived key is encoded into a Fernet key
-* The message is encrypted using **Fernet**
-* The final payload is `salt + ciphertext`, base64-encoded and sent via TCP
+* Keystrokes are captured in real time
+* Data is buffered until `Enter` is pressed
+* A random **salt** is generated per message
+* A secure key is derived using **PBKDF2-HMAC-SHA256**
+* Data is encrypted using **Fernet (AES-based)**
+* Encrypted payload is sent over TCP socket
+* Server decrypts and prints original input
 
 ---
 
-## 💡 Educational Value
+## 🧠 Educational Value
 
-This project is useful for:
+This project helps learners understand:
 
-* Understanding how keyloggers operate
-* Learning about Fernet and PBKDF2 encryption in Python
-* Practicing socket programming
-* Simulating real-world malware behavior for red team education
-* Raising awareness of endpoint security threats
+* Keylogging fundamentals (ethical awareness)
+* Symmetric encryption in Python
+* PBKDF2 key derivation concepts
+* TCP socket communication
+* Real-world malware behavior simulation (defensive study)
 
 ---
 
-## 🧑‍⚖️ License & Ethics
+## 📸 Sample Output
 
-This code is released for **responsible educational use only**.
-Do **not** use this in real-world scenarios or against any unauthorized targets.
+```
+[SERVER] Received Encrypted Packet
+[✓] Decrypted Keystrokes:
+hello world
+login attempt detected
+```
+
+---
+
+## ⚖️ License & Ethics
+
+This project is intended for:
+
+* Cybersecurity education
+* Ethical hacking practice
+* Defensive security research
+
+❌ Do not use for unauthorized monitoring or malicious activity.
 
 ---
 
 ## 👤 Author
 
 **Pevinkumar A**
-
-Cybersecurity Learner | Python Developer | Ethical Hacker in Training
-
+Cybersecurity Learner | Python Developer | Ethical Hacking Enthusiast
